@@ -103,7 +103,7 @@ public class MainActivity extends AppCompatActivity {
         navigationDrawer.addItem(new PrimaryDrawerItem().withName("Opção C").withIcon(getResources().getDrawable(R.drawable.logo_book_tea_min)));
         navigationDrawer.addItem(new DividerDrawerItem());
         navigationDrawer.addItem(new PrimaryDrawerItem().withName("Configuraões").withIcon(getResources().getDrawable(R.drawable.configs)));
-        navigationDrawer.addItem(new SectionDrawerItem().withName("Ajuda! Fale conosco"));
+        navigationDrawer.addItem(new PrimaryDrawerItem().withName("Ajuda! Fale conosco").withIcon(getResources().getDrawable(R.drawable.help)));
 
 
     }
