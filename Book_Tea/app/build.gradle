@@ -31,7 +31,4 @@ dependencies {
     compile 'com.android.support:support-v4:26.+'
     compile 'com.android.support:design:22.2.0'
     testCompile 'junit:junit:4.12'
-    compile('com.mikepenz.materialdrawer:library:2.8.2@aar') {
-        transitive = true
-    }
 }

@@ -4,11 +4,6 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.view.Gravity;
-
-import com.mikepenz.materialdrawer.Drawer;
-import com.mikepenz.materialdrawer.accountswitcher.AccountHeader;
-
 import br.edu.ifpe.tads.pdm.book_tea.domain.Livro;
 import java.util.List;
 import java.util.ArrayList;
@@ -19,9 +14,6 @@ import br.edu.ifpe.tads.pdm.book_tea.fragments.LivroFragment;
 public class MainActivity extends AppCompatActivity {
 
     private Toolbar mainToolbar;
-    private Drawer.Result navigationDrawerLeft;
-    private Drawer.Result navigationDrawerRigt;
-    private AccountHeader.Result headerNavigationLeft;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,19 +34,7 @@ public class MainActivity extends AppCompatActivity {
             fragmentTransaction.replace(R.id.rl_fragment_container,fragment, "fragment_main");
             fragmentTransaction.commit();
         }
-
-//        navigationDrawerLeft = new Drawer()
-//                .withActivity(this)
-//                .withToolbar(mainToolbar)
-//                .withDisplayBelowToolbar(false)
-//                .withActionBarDrawerToggleAnimated(true)
-//                .withDrawerGravity(Gravity.LEFT)
-//                .withSavedInstance(savedInstanceState)
-//                .withSelectedItem(0)
-//                .withActionBarDrawerToggle(true)
-//                .withAccountHeader(headerNavigationLeft)
     }
-
 
     //Metodo de teste para modelo navegacional
     public List<Livro> listBookSimulator(int quantidade){
