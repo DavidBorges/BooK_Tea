@@ -6,9 +6,9 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-<!--
-        <item name="material_drawer_primary_text">@color/colorPrimarytext</item>
-        <item name="material_drawer_selected_text">@color/colorPrimary</item>-->
+
+        <item name="material_drawer_primary_text">@color/colorAccent</item>
+        <item name="material_drawer_selected_text">@color/colorPrimary</item>
     </style>
 
 </resources>
