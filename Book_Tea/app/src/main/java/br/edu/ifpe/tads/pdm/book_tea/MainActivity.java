@@ -1,9 +1,14 @@
 package br.edu.ifpe.tads.pdm.book_tea;
 
+import android.content.Intent;
+import android.support.annotation.IdRes;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
+import android.widget.Button;
+
 import br.edu.ifpe.tads.pdm.book_tea.domain.Livro;
 import java.util.List;
 import java.util.ArrayList;
@@ -14,6 +19,7 @@ import br.edu.ifpe.tads.pdm.book_tea.fragments.LivroFragment;
 public class MainActivity extends AppCompatActivity {
 
     private Toolbar mainToolbar;
+    private Button button;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +32,16 @@ public class MainActivity extends AppCompatActivity {
         mainToolbar.setLogo(R.drawable.logo_book_tea_min);
         setSupportActionBar(mainToolbar);
 
+
+        button = (Button) findViewById(R.id.button);
+        button.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                Intent i = new Intent(MainActivity.this, FriendListActivity.class);
+                startActivity(i);
+            }
+        });
+
         //criar Fragment
         LivroFragment fragment= (LivroFragment) getSupportFragmentManager().findFragmentByTag("fragment_main");
         if(fragment==null){
@@ -35,6 +51,8 @@ public class MainActivity extends AppCompatActivity {
             fragmentTransaction.commit();
         }
     }
+
+
 
     //Metodo de teste para modelo navegacional
     public List<Livro> listBookSimulator(int quantidade){

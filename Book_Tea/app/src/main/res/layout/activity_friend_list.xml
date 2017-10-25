@@ -13,7 +13,26 @@
         android:layout_width="match_parent"
         android:minHeight="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+
+        <ImageButton
+            android:id="@+id/search"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="15dp"
+            android:layout_gravity="right"
+            android:src="@drawable/ic_search_black_24dp"
+            android:background="@color/colorPrimary"/>
+
+        <ImageButton
+            android:id="@+id/add"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="15dp"
+            android:layout_gravity="right"
+            android:src="@drawable/ic_add"
+            android:background="@color/colorPrimary"/>
+    </android.support.v7.widget.Toolbar>
 
     <RelativeLayout
         android:id="@+id/rl_fragment_container"
