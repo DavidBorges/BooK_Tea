@@ -7,6 +7,8 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 public class ActivitySplash extends AppCompatActivity {
     private ImageView iv;
 
@@ -18,7 +20,7 @@ public class ActivitySplash extends AppCompatActivity {
         iv= (ImageView) findViewById(R.id.iv);
         Animation myanim = AnimationUtils.loadAnimation(this, R.anim.mytransition);
         iv.startAnimation(myanim);
-        final Intent i = new Intent(this, MainActivity.class);
+        final Intent i = new Intent(this, SignInActivity.class);
         Thread timer = new Thread(){
             public void run(){
                 try{
@@ -32,5 +34,6 @@ public class ActivitySplash extends AppCompatActivity {
             }
         };
         timer.start();
+
     }
 }

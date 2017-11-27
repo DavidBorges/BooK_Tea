@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.AdapterView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.accountswitcher.AccountHeader;
 import com.mikepenz.materialdrawer.model.DividerDrawerItem;
@@ -32,6 +33,8 @@ public class MainActivity extends AppCompatActivity {
     private Button button;
     private Drawer.Result navigationDrawer;
     private AccountHeader.Result headerNavigation;
+    private FirebaseAuth mAuth;
+    private FirebaseAuthListener authListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,6 +100,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 })
                 .build();
+
         navigationDrawer.addItem(new PrimaryDrawerItem().withName("Página inicial").withIcon(getResources().getDrawable(R.drawable.homepage)));
         navigationDrawer.addItem(new DividerDrawerItem());
         navigationDrawer.addItem(new PrimaryDrawerItem().withName("Opção B").withIcon(getResources().getDrawable(R.drawable.logo_book_tea_min)));
@@ -104,21 +108,23 @@ public class MainActivity extends AppCompatActivity {
         navigationDrawer.addItem(new DividerDrawerItem());
         navigationDrawer.addItem(new PrimaryDrawerItem().withName("Configuraões").withIcon(getResources().getDrawable(R.drawable.configs)));
         navigationDrawer.addItem(new PrimaryDrawerItem().withName("Ajuda! Fale conosco").withIcon(getResources().getDrawable(R.drawable.help)));
+        navigationDrawer.addItem(new PrimaryDrawerItem().withName("Sair").withIcon(getResources().getDrawable(R.drawable.logo_book_tea_min)));
 
-
+        this.mAuth = FirebaseAuth.getInstance();
+        this.authListener = new FirebaseAuthListener(this);
     }
 
-    //Metodo de teste para modelo navegacional
-//    public List<Livro> listBookSimulator(int quantidade){
-//        String[] autores= new String[] {"Autor A"," Autor B","Autor C"};
-//        String[] titulos= new String[] {"titulo A","titulo B","titulo C"};
-//        int[] imagens= new int[]{R.drawable.book_icon};
-//        List<Livro> lista= new ArrayList<>();
-//
-//        for(int i=0; i< quantidade; i++){
-//            Livro livro= new Livro (titulos[i % titulos.length], autores[i % autores.length], imagens[0]);
-//        }
-//
-//        return lista;
-//    }
+    @Override
+    public void onStart() {
+        super.onStart();
+        mAuth.addAuthStateListener(authListener);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        mAuth.removeAuthStateListener(authListener);
+    }
+
+
 }

@@ -9,6 +9,8 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 import br.edu.ifpe.tads.pdm.book_tea.fragments.ListaAmigosFragment;
 import br.edu.ifpe.tads.pdm.book_tea.fragments.LivroFragment;
 
@@ -16,6 +18,8 @@ public class FriendListActivity extends AppCompatActivity {
     private Toolbar mainToolbar;
     private ImageButton search;
     private ImageButton add;
+    private FirebaseAuth mAuth;
+    private FirebaseAuthListener authListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +64,9 @@ public class FriendListActivity extends AppCompatActivity {
             }
         });
 
+        this.mAuth = FirebaseAuth.getInstance();
+        this.authListener = new FirebaseAuthListener(this);
+
     }
 
     @Override
@@ -68,5 +75,17 @@ public class FriendListActivity extends AppCompatActivity {
         finish();
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        mAuth.addAuthStateListener(authListener);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        mAuth.removeAuthStateListener(authListener);
     }
 }
