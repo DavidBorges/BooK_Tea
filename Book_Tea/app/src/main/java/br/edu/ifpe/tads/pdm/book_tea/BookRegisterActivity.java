@@ -51,7 +51,7 @@ public class BookRegisterActivity extends AppCompatActivity {
                     user = childSnapshot.getValue(Usuario.class);
                     if (user != null) {
                         if ((mAuth.getCurrentUser().getEmail()).equals(user.getEmail())) {
-                            ArrayList<String> loadBooks = (ArrayList<String>) childSnapshot.child("/livros").getValue();
+                            break;
                         }
                     }
                 }
