@@ -15,6 +15,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.ArrayList;
+
 public class SignUpActivity extends AppCompatActivity {
    // EditText edName = (EditText) findViewById(R.id.editName);
     EditText edEmail;
@@ -44,6 +46,7 @@ public class SignUpActivity extends AppCompatActivity {
         final String email = edEmail.getText().toString();
         final String password = edPassword.getText().toString();
         final String idade = edIdade.getText().toString();
+        final ArrayList<Livro> livros = new ArrayList<Livro>();
 
         final FirebaseAuth mAuth = FirebaseAuth.getInstance();
         mAuth.createUserWithEmailAndPassword(email, password)
@@ -53,7 +56,7 @@ public class SignUpActivity extends AppCompatActivity {
                         String msg = task.isSuccessful() ? "SIGN UP OK!": "SIGN UP ERROR!";
                         Toast.makeText(SignUpActivity.this, msg, Toast.LENGTH_SHORT).show();
                         if (task.isSuccessful()) {
-                            Usuario tempUser = new Usuario(nome, email, idade);
+                            Usuario tempUser = new Usuario(nome, email, idade, livros);
                             DatabaseReference drUsers = FirebaseDatabase.
                                     getInstance().getReference("users");
                             drUsers.child(mAuth.getCurrentUser().getUid()).

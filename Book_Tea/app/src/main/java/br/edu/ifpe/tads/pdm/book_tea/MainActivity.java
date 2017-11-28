@@ -1,7 +1,6 @@
 package br.edu.ifpe.tads.pdm.book_tea;
 
 import android.content.Intent;
-import android.support.annotation.IdRes;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -14,11 +13,6 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.accountswitcher.AccountHeader;
 import com.mikepenz.materialdrawer.model.DividerDrawerItem;
@@ -26,10 +20,6 @@ import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
 import com.mikepenz.materialdrawer.model.SectionDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
-
-import br.edu.ifpe.tads.pdm.book_tea.domain.Livro;
-import java.util.List;
-import java.util.ArrayList;
 
 import br.edu.ifpe.tads.pdm.book_tea.fragments.LivroFragment;
 
@@ -57,7 +47,6 @@ public class MainActivity extends AppCompatActivity {
         mainToolbar= (Toolbar) findViewById(R.id.toolbar_main);
         mainToolbar.setTitle("Book&Tea");
         mainToolbar.setSubtitle("Para amantes da leitura");
-        //mainToolbar.setLogo(R.drawable.logo_book_tea_min);
         setSupportActionBar(mainToolbar);
 
         //criar Fragment
@@ -140,4 +129,10 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(MainActivity.this, "Error!", Toast.LENGTH_SHORT).show();
         }
     }
+
+    public void buttonBookRegister(View view){
+        Intent i = new Intent(MainActivity.this, BookRegisterActivity.class);
+        startActivity(i);
+    }
+
 }

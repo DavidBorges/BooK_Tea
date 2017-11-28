@@ -19,7 +19,14 @@
         <activity android:name=".MainActivity" />
         <activity android:name=".FriendListActivity" />
         <activity android:name=".SignUpActivity" />
-        <activity android:name=".SignInActivity"></activity>
+        <activity android:name=".SignInActivity" />
+        <activity
+            android:name=".ProfileActivity"
+            android:label="@string/title_activity_profile" />
+        <activity android:name=".BookRegisterActivity" />
+        <activity
+            android:name=".Main2Activity"
+            android:label="@string/title_activity_main2"></activity>
     </application>
 
 </manifest>
