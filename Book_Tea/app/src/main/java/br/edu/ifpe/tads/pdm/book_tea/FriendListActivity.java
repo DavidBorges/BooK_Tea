@@ -11,9 +11,6 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 
-import br.edu.ifpe.tads.pdm.book_tea.fragments.ListaAmigosFragment;
-import br.edu.ifpe.tads.pdm.book_tea.fragments.LivroFragment;
-
 public class FriendListActivity extends AppCompatActivity {
     private Toolbar mainToolbar;
     private ImageButton search;
@@ -37,15 +34,6 @@ public class FriendListActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
 
-
-
-        ListaAmigosFragment fragment = (ListaAmigosFragment) getSupportFragmentManager().findFragmentByTag("fragment_main");
-        if (fragment == null) {
-            fragment = new ListaAmigosFragment();
-            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.replace(R.id.rl_fragment_container, fragment, "fragment_main");
-            fragmentTransaction.commit();
-        }
 
         search = (ImageButton) findViewById(R.id.search);
         add = (ImageButton) findViewById(R.id.add);

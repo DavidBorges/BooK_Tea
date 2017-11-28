@@ -1,8 +1,6 @@
 package br.edu.ifpe.tads.pdm.book_tea;
 
 import android.content.Intent;
-import android.support.annotation.IdRes;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -10,28 +8,22 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.AdapterView;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.accountswitcher.AccountHeader;
 import com.mikepenz.materialdrawer.model.DividerDrawerItem;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
-import com.mikepenz.materialdrawer.model.SectionDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 
+import br.edu.ifpe.tads.pdm.book_tea.adapters.LivroAdapter;
 import br.edu.ifpe.tads.pdm.book_tea.domain.Livro;
 import java.util.List;
 import java.util.ArrayList;
-
-import br.edu.ifpe.tads.pdm.book_tea.fragments.LivroFragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -42,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private FirebaseAuthListener authListener;
     private FirebaseUser mUser;
+    private List<Livro> livroList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,21 +46,28 @@ public class MainActivity extends AppCompatActivity {
 
         mUser = mAuth.getCurrentUser();
 
-
         mainToolbar= (Toolbar) findViewById(R.id.toolbar_main);
         mainToolbar.setTitle("Book&Tea");
         mainToolbar.setSubtitle("Para amantes da leitura");
         //mainToolbar.setLogo(R.drawable.logo_book_tea_min);
         setSupportActionBar(mainToolbar);
 
-        //criar Fragment
-        LivroFragment fragment= (LivroFragment) getSupportFragmentManager().findFragmentByTag("fragment_main");
-        if(fragment==null){
-            fragment= new LivroFragment();
-            FragmentTransaction fragmentTransaction= getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.replace(R.id.rl_fragment_container,fragment, "fragment_main");
-            fragmentTransaction.commit();
-        }
+        ListView listViewLivros =(ListView) findViewById(R.id.main_list_view);
+        List<Livro> list = livrosListados();
+
+        LivroAdapter adapterLivros = new LivroAdapter(this, R.layout.titulos_layout,livroList);
+        listViewLivros.setAdapter(adapterLivros);
+        listViewLivros.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                Intent intent= new Intent();
+                intent.putExtra("Titulo", livroList.get(position).getTitulo());
+                intent.putExtra("Autor", livroList.get(position).getAutor());
+
+                intent.setClass(MainActivity.this, OnClickLivroActivity.class);
+                startActivity(intent);
+            }
+        });
 
         headerNavigation = new AccountHeader()
                 .withActivity(this)
@@ -114,6 +114,18 @@ public class MainActivity extends AppCompatActivity {
         navigationDrawer.addItem(new PrimaryDrawerItem().withName("Ajuda! Fale conosco").withIcon(getResources().getDrawable(R.drawable.help)));
         navigationDrawer.addItem(new PrimaryDrawerItem().withName("Sair").withIcon(getResources().getDrawable(R.drawable.logo_book_tea_min)));
 
+    }
+
+    private List<Livro> livrosListados(){
+        livroList= new ArrayList<>();
+        livroList.add(new Livro("King M", "Canavial dos macacos", R.drawable.book_icon));
+        livroList.add(new Livro("King M", "Canavial dos macacos 2", R.drawable.book_icon));
+        livroList.add(new Livro("King M", "Canavial dos macacos 3", R.drawable.book_icon));
+        livroList.add(new Livro("King M", "Canavial dos macacos 4", R.drawable.book_icon));
+        livroList.add(new Livro("King M", "Canavial dos macacos 5", R.drawable.book_icon));
+        livroList.add(new Livro("King M", "Canavial dos macacos 6", R.drawable.book_icon));
+
+        return livroList;
     }
 
     @Override

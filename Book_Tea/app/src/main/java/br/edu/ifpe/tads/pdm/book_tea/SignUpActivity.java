@@ -15,6 +15,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import br.edu.ifpe.tads.pdm.book_tea.domain.Usuario;
+
 public class SignUpActivity extends AppCompatActivity {
    // EditText edName = (EditText) findViewById(R.id.editName);
     EditText edEmail;

@@ -6,7 +6,7 @@
         android:allowBackup="true"
         android:icon="@drawable/logo_book_tea_min"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@drawable/logo_book_tea_min"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".ActivitySplash">
@@ -19,7 +19,8 @@
         <activity android:name=".MainActivity" />
         <activity android:name=".FriendListActivity" />
         <activity android:name=".SignUpActivity" />
-        <activity android:name=".SignInActivity"></activity>
+        <activity android:name=".SignInActivity" />
+        <activity android:name=".OnClickLivroActivity"></activity>
     </application>
 
 </manifest>
