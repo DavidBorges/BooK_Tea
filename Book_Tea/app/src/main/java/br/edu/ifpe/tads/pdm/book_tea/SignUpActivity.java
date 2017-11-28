@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -13,11 +12,15 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class SignUpActivity extends AppCompatActivity {
    // EditText edName = (EditText) findViewById(R.id.editName);
     EditText edEmail;
     EditText edPassword;
+    EditText edIdade;
+    EditText edNome;
     private FirebaseAuth mAuth;
     private FirebaseAuthListener authListener;
 
@@ -29,22 +32,34 @@ public class SignUpActivity extends AppCompatActivity {
 
         edPassword = (EditText) findViewById(R.id.editPassword);
         edEmail = (EditText) findViewById(R.id.editEmail);
+        edIdade = (EditText) findViewById(R.id.editIdade);
+        edNome = (EditText) findViewById(R.id.editNome);
 
         this.mAuth = FirebaseAuth.getInstance();
         this.authListener = new FirebaseAuthListener(this);
     }
 
     public void buttonSignUpClick(View view){
-        String email = edEmail.getText().toString();
-        String password = edPassword.getText().toString();
+        final String nome = edNome.getText().toString();
+        final String email = edEmail.getText().toString();
+        final String password = edPassword.getText().toString();
+        final String idade = edIdade.getText().toString();
 
-        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        final FirebaseAuth mAuth = FirebaseAuth.getInstance();
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         String msg = task.isSuccessful() ? "SIGN UP OK!": "SIGN UP ERROR!";
                         Toast.makeText(SignUpActivity.this, msg, Toast.LENGTH_SHORT).show();
+                        if (task.isSuccessful()) {
+                            Usuario tempUser = new Usuario(nome, email, idade);
+                            DatabaseReference drUsers = FirebaseDatabase.
+                                    getInstance().getReference("users");
+                            drUsers.child(mAuth.getCurrentUser().getUid()).
+                                    setValue(tempUser);
+                        }
+
                         Intent i = new Intent(SignUpActivity.this, SignInActivity.class);
                         startActivity(i);
                     }
