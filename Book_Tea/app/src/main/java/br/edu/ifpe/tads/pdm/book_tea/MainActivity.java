@@ -1,6 +1,7 @@
 package br.edu.ifpe.tads.pdm.book_tea;
 
 import android.content.Intent;
+import android.provider.ContactsContract;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -13,25 +14,29 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.accountswitcher.AccountHeader;
 import com.mikepenz.materialdrawer.model.DividerDrawerItem;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
-import com.mikepenz.materialdrawer.model.SectionDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 
-import br.edu.ifpe.tads.pdm.book_tea.fragments.LivroFragment;
 
 public class MainActivity extends AppCompatActivity {
 
     private Toolbar mainToolbar;
-    private Button button;
     private Drawer.Result navigationDrawer;
     private AccountHeader.Result headerNavigation;
     private FirebaseAuth mAuth;
     private FirebaseAuthListener authListener;
     private FirebaseUser mUser;
+    private DatabaseReference drUsers;
+    private Usuario user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,21 +47,29 @@ public class MainActivity extends AppCompatActivity {
         this.authListener = new FirebaseAuthListener(this);
 
         mUser = mAuth.getCurrentUser();
-
+        drUsers = FirebaseDatabase.getInstance().getReference("users/");
 
         mainToolbar= (Toolbar) findViewById(R.id.toolbar_main);
         mainToolbar.setTitle("Book&Tea");
         mainToolbar.setSubtitle("Para amantes da leitura");
         setSupportActionBar(mainToolbar);
 
-        //criar Fragment
-        LivroFragment fragment= (LivroFragment) getSupportFragmentManager().findFragmentByTag("fragment_main");
-        if(fragment==null){
-            fragment= new LivroFragment();
-            FragmentTransaction fragmentTransaction= getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.replace(R.id.rl_fragment_container,fragment, "fragment_main");
-            fragmentTransaction.commit();
-        }
+        drUsers.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot childSnapshot : dataSnapshot.getChildren()) {
+                    user = childSnapshot.getValue(Usuario.class);
+                    if (user != null) {
+                        if ((mAuth.getCurrentUser().getEmail()).equals(user.getEmail())) {
+                            break;
+                        }
+                    }
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError){
+            }
+        });
 
         headerNavigation = new AccountHeader()
                 .withActivity(this)
@@ -94,15 +107,14 @@ public class MainActivity extends AppCompatActivity {
                 })
                 .build();
 
-        navigationDrawer.addItem(new PrimaryDrawerItem().withName("Página inicial").withIcon(getResources().getDrawable(R.drawable.homepage)));
+        navigationDrawer.addItem(new PrimaryDrawerItem().withIdentifier(1).withName("Página inicial").withIcon(getResources().getDrawable(R.drawable.homepage)));
         navigationDrawer.addItem(new DividerDrawerItem());
-        navigationDrawer.addItem(new PrimaryDrawerItem().withName("Opção B").withIcon(getResources().getDrawable(R.drawable.logo_book_tea_min)));
-        navigationDrawer.addItem(new PrimaryDrawerItem().withName("Opção C").withIcon(getResources().getDrawable(R.drawable.logo_book_tea_min)));
+        navigationDrawer.addItem(new PrimaryDrawerItem().withIdentifier(2).withName("Opção B").withIcon(getResources().getDrawable(R.drawable.logo_book_tea_min)));
+        navigationDrawer.addItem(new PrimaryDrawerItem().withIdentifier(3).withName("Opção C").withIcon(getResources().getDrawable(R.drawable.logo_book_tea_min)));
         navigationDrawer.addItem(new DividerDrawerItem());
-        navigationDrawer.addItem(new PrimaryDrawerItem().withName("Configuraões").withIcon(getResources().getDrawable(R.drawable.configs)));
-        navigationDrawer.addItem(new PrimaryDrawerItem().withName("Ajuda! Fale conosco").withIcon(getResources().getDrawable(R.drawable.help)));
-        navigationDrawer.addItem(new PrimaryDrawerItem().withName("Sair").withIcon(getResources().getDrawable(R.drawable.logo_book_tea_min)));
-
+        navigationDrawer.addItem(new PrimaryDrawerItem().withIdentifier(4).withName("Configuraões").withIcon(getResources().getDrawable(R.drawable.configs)));
+        navigationDrawer.addItem(new PrimaryDrawerItem().withIdentifier(5).withName("Ajuda! Fale conosco").withIcon(getResources().getDrawable(R.drawable.help)));
+        navigationDrawer.addItem(new PrimaryDrawerItem().withIdentifier(6).withName("Sair").withIcon(getResources().getDrawable(R.drawable.logo_book_tea_min)));
     }
 
     @Override
@@ -117,7 +129,7 @@ public class MainActivity extends AppCompatActivity {
         mAuth.removeAuthStateListener(authListener);
     }
 
-    public void buttonSignOutClick(View view) {
+    public void buttonSignOutClick() {
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         FirebaseUser user = mAuth.getCurrentUser();
         if (user != null) {
@@ -131,8 +143,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void buttonBookRegister(View view){
-        Intent i = new Intent(MainActivity.this, BookRegisterActivity.class);
+        Intent i = new Intent(MainActivity.this, BookReadActivity.class);
         startActivity(i);
+    }
+
+    public void loadBooks(){
+
     }
 
 }
