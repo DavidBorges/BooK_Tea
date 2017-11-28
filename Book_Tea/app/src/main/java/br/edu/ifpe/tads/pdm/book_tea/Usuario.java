@@ -9,7 +9,9 @@ public class Usuario {
     private String idade;
     private ArrayList<Livro> livros;
 
-    public Usuario(){}
+    public Usuario(){
+        livros = new ArrayList<>();
+    }
 
     public Usuario(String nome, String email, String idade, ArrayList<Livro> livros){
         this.nome = nome;

@@ -36,7 +36,7 @@ public class BookRegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_book_register);
 
-        drUsers = FirebaseDatabase.getInstance().getReference("users");
+        drUsers = FirebaseDatabase.getInstance().getReference("users/");
 
         edTitulo = (EditText) findViewById(R.id.editTitulo);
         edAnoPub = (EditText) findViewById(R.id.editAnoPublicacao);
@@ -52,7 +52,7 @@ public class BookRegisterActivity extends AppCompatActivity {
                 for (DataSnapshot childSnapshot : dataSnapshot.getChildren()) {
                     user = childSnapshot.getValue(Usuario.class);
                     if (user != null) {
-                        if (mAuth.getCurrentUser().getEmail().equals(user.getEmail())) {
+                        if ((mAuth.getCurrentUser().getEmail()).equals(user.getEmail())) {
                             break;
                         }
                     }
@@ -68,17 +68,17 @@ public class BookRegisterActivity extends AppCompatActivity {
         Map<String, Object> childUpdates = new HashMap<>();
 
         final String nome = edTitulo.getText().toString();
-        final String email = edAnoPub.getText().toString();
-        final String password = edAutor.getText().toString();
-        final String idade = edEditora.getText().toString();
+        final String anoPub = edAnoPub.getText().toString();
+        final String autor = edAutor.getText().toString();
+        final String editora = edEditora.getText().toString();
 
 
-        Livro tempBook = new Livro(nome, email, idade, password);
+        Livro tempBook = new Livro(nome, autor, anoPub, editora);
         user.getLivros().add(tempBook);
 
-        childUpdates.put(mAuth.getCurrentUser().getUid()+"livros", user.getLivros());
+        childUpdates.put(mAuth.getCurrentUser().getUid()+"/livros", user.getLivros());
         drUsers.updateChildren(childUpdates);
-
+        tempBook = null;
         Intent i = new Intent(BookRegisterActivity.this, MainActivity.class);
         startActivity(i);
     }

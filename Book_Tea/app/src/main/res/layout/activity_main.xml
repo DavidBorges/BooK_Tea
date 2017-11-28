@@ -25,6 +25,16 @@
     </RelativeLayout>
 
     <Button
+        android:id="@+id/SignOut"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:onClick="buttonSignOutClick"
+        android:text="SignOut"
+        android:layout_above="@+id/button"
+        android:layout_alignStart="@+id/button" />
+
+    <Button
         android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
