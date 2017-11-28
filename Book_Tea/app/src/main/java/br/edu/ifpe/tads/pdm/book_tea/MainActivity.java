@@ -93,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l, IDrawerItem iDrawerItem) {
-
+                        logout();
                     }
                 })
                 .withOnDrawerItemLongClickListener(new Drawer.OnDrawerItemLongClickListener() {
@@ -105,15 +105,21 @@ public class MainActivity extends AppCompatActivity {
                 })
                 .build();
 
-        navigationDrawer.addItem(new PrimaryDrawerItem().withName("Página inicial").withIcon(getResources().getDrawable(R.drawable.homepage)));
+        navigationDrawer.addItem(new PrimaryDrawerItem().withIdentifier(1).withName("Página inicial").withIcon(getResources().getDrawable(R.drawable.homepage)));
         navigationDrawer.addItem(new DividerDrawerItem());
-        navigationDrawer.addItem(new PrimaryDrawerItem().withName("Opção B").withIcon(getResources().getDrawable(R.drawable.logo_book_tea_min)));
-        navigationDrawer.addItem(new PrimaryDrawerItem().withName("Opção C").withIcon(getResources().getDrawable(R.drawable.logo_book_tea_min)));
+        navigationDrawer.addItem(new PrimaryDrawerItem().withIdentifier(2).withName("Opção B").withIcon(getResources().getDrawable(R.drawable.logo_book_tea_min)));
+        navigationDrawer.addItem(new PrimaryDrawerItem().withIdentifier(3).withName("Opção C").withIcon(getResources().getDrawable(R.drawable.logo_book_tea_min)));
         navigationDrawer.addItem(new DividerDrawerItem());
-        navigationDrawer.addItem(new PrimaryDrawerItem().withName("Configuraões").withIcon(getResources().getDrawable(R.drawable.configs)));
-        navigationDrawer.addItem(new PrimaryDrawerItem().withName("Ajuda! Fale conosco").withIcon(getResources().getDrawable(R.drawable.help)));
-        navigationDrawer.addItem(new PrimaryDrawerItem().withName("Sair").withIcon(getResources().getDrawable(R.drawable.logo_book_tea_min)));
+        navigationDrawer.addItem(new PrimaryDrawerItem().withIdentifier(4).withName("Configuraões").withIcon(getResources().getDrawable(R.drawable.configs)));
+        navigationDrawer.addItem(new PrimaryDrawerItem().withIdentifier(5).withName("Ajuda! Fale conosco").withIcon(getResources().getDrawable(R.drawable.help)));
+        navigationDrawer.addItem(new PrimaryDrawerItem().withIdentifier(6).withName("Sair").withIcon(getResources().getDrawable(R.drawable.logo_book_tea_min)));
 
+    }
+
+    private void logout() {
+        if(navigationDrawer.equals(navigationDrawer.getPositionFromIdentifier(6))){
+            buttonSignOutClick(getCurrentFocus());
+        }
     }
 
     private List<Livro> livrosListados(){
