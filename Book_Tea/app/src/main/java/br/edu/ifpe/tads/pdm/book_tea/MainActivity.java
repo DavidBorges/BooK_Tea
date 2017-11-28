@@ -107,8 +107,8 @@ public class MainActivity extends AppCompatActivity {
 
         navigationDrawer.addItem(new PrimaryDrawerItem().withIdentifier(1).withName("Página inicial").withIcon(getResources().getDrawable(R.drawable.homepage)));
         navigationDrawer.addItem(new DividerDrawerItem());
-        navigationDrawer.addItem(new PrimaryDrawerItem().withIdentifier(2).withName("Opção B").withIcon(getResources().getDrawable(R.drawable.logo_book_tea_min)));
-        navigationDrawer.addItem(new PrimaryDrawerItem().withIdentifier(3).withName("Opção C").withIcon(getResources().getDrawable(R.drawable.logo_book_tea_min)));
+        navigationDrawer.addItem(new PrimaryDrawerItem().withIdentifier(2).withName("Livros").withIcon(getResources().getDrawable(R.drawable.logo_book_tea_min)));
+        navigationDrawer.addItem(new PrimaryDrawerItem().withIdentifier(3).withName("Amigos").withIcon(getResources().getDrawable(R.drawable.logo_book_tea_min)));
         navigationDrawer.addItem(new DividerDrawerItem());
         navigationDrawer.addItem(new PrimaryDrawerItem().withIdentifier(4).withName("Configuraões").withIcon(getResources().getDrawable(R.drawable.configs)));
         navigationDrawer.addItem(new PrimaryDrawerItem().withIdentifier(5).withName("Ajuda! Fale conosco").withIcon(getResources().getDrawable(R.drawable.help)));
