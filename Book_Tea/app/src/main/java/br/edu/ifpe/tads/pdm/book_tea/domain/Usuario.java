@@ -1,4 +1,4 @@
-package br.edu.ifpe.tads.pdm.book_tea;
+package br.edu.ifpe.tads.pdm.book_tea.domain;
 
 
 import java.util.ArrayList;

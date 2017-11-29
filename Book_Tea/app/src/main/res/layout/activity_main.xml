@@ -16,13 +16,11 @@
         android:background="?attr/colorPrimary"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
 
-    <RelativeLayout
-        android:id="@+id/rl_fragment_container"
-        android:layout_below="@+id/toolbar_main"
+    <ListView
+        android:id="@+id/main_list_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-
-    </RelativeLayout>
+    </ListView>
 
     <Button
         android:id="@+id/SignOut"

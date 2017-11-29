@@ -1,12 +1,10 @@
 package br.edu.ifpe.tads.pdm.book_tea;
 
 import android.content.Intent;
-import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -15,9 +13,11 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+
+import br.edu.ifpe.tads.pdm.book_tea.domain.*;
+import br.edu.ifpe.tads.pdm.book_tea.domain.Livro;
 
 public class BookRegisterActivity extends AppCompatActivity {
     EditText edTitulo;
@@ -71,7 +71,7 @@ public class BookRegisterActivity extends AppCompatActivity {
         final String editora = edEditora.getText().toString();
 
 
-        Livro tempBook = new Livro(nome, autor, anoPub, editora);
+        br.edu.ifpe.tads.pdm.book_tea.domain.Livro tempBook = new Livro(nome, autor, anoPub, editora);
         user.getLivros().add(tempBook);
 
         childUpdates.put(mAuth.getCurrentUser().getUid()+"/livros", user.getLivros());

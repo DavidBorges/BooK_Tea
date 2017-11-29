@@ -1,10 +1,12 @@
 package br.edu.ifpe.tads.pdm.book_tea.adapters;
 
+import android.app.Activity;
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
+import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -12,74 +14,70 @@ import java.util.List;
 
 import br.edu.ifpe.tads.pdm.book_tea.R;
 import br.edu.ifpe.tads.pdm.book_tea.domain.Livro;
-import br.edu.ifpe.tads.pdm.book_tea.interfaces.RV_OnClickListener;
 
 
-public class LivroAdapter extends RecyclerView.Adapter<LivroAdapter.viewHolder> {
+public class LivroAdapter extends ArrayAdapter<Livro> {
 
-    private List<Livro> listalivros;
-    private LayoutInflater layoutInflater;
-    private static RV_OnClickListener rv_onClickListener;
+    Context context;
+    int layoutResourceId;
+    List<Livro> livros= null;
 
-    public LivroAdapter(Context c, List<Livro> listalivros){
-        this.listalivros = listalivros;
-        this.layoutInflater = (LayoutInflater) c.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
+    public LivroAdapter(Context context, int resource, List<Livro> objects) {
+        super(context, resource,objects);
+        this.context= context;
+        this.layoutResourceId= resource;
+        this.livros= objects;
     }
 
     @Override
-    public viewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = layoutInflater.inflate(R.layout.titulos_layout, parent, false);
-        viewHolder viewHolder= new viewHolder(view);
-        return viewHolder;
+    public int getCount() {
+        return livros.size();
     }
 
     @Override
-    public int getItemCount() {
-        return listalivros.size();
+    public Livro getItem(int i) {
+        return livros.get(i);
     }
 
     @Override
-    public void onBindViewHolder(viewHolder holder, int position) {
-        viewHolder.capaLivro.setImageResource(listalivros.get(position).getImagem());
-        viewHolder.tituloLivro.setText(listalivros.get(position).getTitulo());
-        viewHolder.autorLivro.setText(listalivros.get(position).getAutor());
-
+    public long getItemId(int i) {
+        return 0;
     }
 
-    public void addListItem(Livro c, int position){
-        listalivros.add(c);
-        notifyItemInserted(position);
+    private class ItemHolder {
+
+        TextView txtTitulo;
+        TextView txtAutor;
+        TextView txtAnoPublicação;
+        TextView txtEditora;
     }
 
-    public void removeItemLista(int position) {
-        listalivros.remove(position);
-        notifyItemRemoved(position);
-    }
+    @NonNull
+    @Override
+    public View getView(int position, View convertView, ViewGroup parent) {
+        ItemHolder holder;
+        if (convertView == null) {
+            LayoutInflater inflater= ((Activity)context).getLayoutInflater();
+            convertView = inflater.inflate(R.layout.titulos_layout, parent);
 
-    public void setRV_OnClickListener(RV_OnClickListener r){
-        rv_onClickListener = r;
-    }
+            //cria um item de suporte para não precisarmos sempre
+            //inflar as mesmas informacoes
+            holder = new ItemHolder();
+            holder.txtTitulo = ((TextView) convertView.findViewById(R.id.tituloLivro));
+            holder.txtAutor = ((TextView) convertView.findViewById(R.id.autorLivro));
+            holder.txtAnoPublicação = ((TextView) convertView.findViewById(R.id.anoPublicacaoLivro));
+            holder.txtEditora = ((TextView) convertView.findViewById(R.id.editoraLivro));
 
-    public static class viewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
-        public static ImageView capaLivro;
-        public static TextView tituloLivro;
-        public static TextView autorLivro;
-
-        public viewHolder(View itemView) {
-            super(itemView);
-            capaLivro = (ImageView) itemView.findViewById(R.id.capaLivro);
-            tituloLivro = (TextView) itemView.findViewById(R.id.tituloLivro);
-            autorLivro = (TextView) itemView.findViewById(R.id.autorLivro);
-
-            itemView.setOnClickListener(this);
+            convertView.setTag(holder);
+        } else {
+            holder = (ItemHolder) convertView.getTag();
         }
+        Livro item = livros.get(position);
+        holder.txtTitulo.setText(item.getTitulo());
+        holder.txtAutor.setText(item.getAutor());
+        holder.txtAnoPublicação.setText(item.getAnoPublicacao());
+        holder.txtEditora.setText(item.getEditora());
 
-        @Override
-        public void onClick(View view) {
-            if(rv_onClickListener != null){
-                rv_onClickListener.onClickListener(view, getPosition());
-            }
-        }
+        return convertView;
     }
 }

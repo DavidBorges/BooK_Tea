@@ -17,6 +17,9 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
+import br.edu.ifpe.tads.pdm.book_tea.domain.*;
+import br.edu.ifpe.tads.pdm.book_tea.domain.Livro;
+
 public class SignUpActivity extends AppCompatActivity {
    // EditText edName = (EditText) findViewById(R.id.editName);
     EditText edEmail;
@@ -46,7 +49,7 @@ public class SignUpActivity extends AppCompatActivity {
         final String email = edEmail.getText().toString();
         final String password = edPassword.getText().toString();
         final String idade = edIdade.getText().toString();
-        final ArrayList<Livro> livros = new ArrayList<Livro>();
+        final ArrayList<br.edu.ifpe.tads.pdm.book_tea.domain.Livro> livros = new ArrayList<Livro>();
 
         final FirebaseAuth mAuth = FirebaseAuth.getInstance();
         mAuth.createUserWithEmailAndPassword(email, password)

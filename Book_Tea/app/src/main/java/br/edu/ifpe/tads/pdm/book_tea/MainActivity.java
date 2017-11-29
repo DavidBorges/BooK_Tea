@@ -1,15 +1,13 @@
 package br.edu.ifpe.tads.pdm.book_tea;
 
 import android.content.Intent;
-import android.provider.ContactsContract;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.View;
-import android.widget.Button;
 import android.widget.AdapterView;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -26,6 +24,13 @@ import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import br.edu.ifpe.tads.pdm.book_tea.adapters.LivroAdapter;
+import br.edu.ifpe.tads.pdm.book_tea.domain.Livro;
+import br.edu.ifpe.tads.pdm.book_tea.domain.Usuario;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -37,17 +42,22 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseUser mUser;
     private DatabaseReference drUsers;
     private Usuario user;
+    private ArrayList<Livro> livroList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        ListView listViewLivros =(ListView) findViewById(R.id.main_list_view);
+        List<Livro> list = livrosListados();
+
         this.mAuth = FirebaseAuth.getInstance();
         this.authListener = new FirebaseAuthListener(this);
 
         mUser = mAuth.getCurrentUser();
         drUsers = FirebaseDatabase.getInstance().getReference("users/");
+
 
         mainToolbar= (Toolbar) findViewById(R.id.toolbar_main);
         mainToolbar.setTitle("Book&Tea");
@@ -109,12 +119,24 @@ public class MainActivity extends AppCompatActivity {
 
         navigationDrawer.addItem(new PrimaryDrawerItem().withIdentifier(1).withName("Página inicial").withIcon(getResources().getDrawable(R.drawable.homepage)));
         navigationDrawer.addItem(new DividerDrawerItem());
-        navigationDrawer.addItem(new PrimaryDrawerItem().withIdentifier(2).withName("Opção B").withIcon(getResources().getDrawable(R.drawable.logo_book_tea_min)));
-        navigationDrawer.addItem(new PrimaryDrawerItem().withIdentifier(3).withName("Opção C").withIcon(getResources().getDrawable(R.drawable.logo_book_tea_min)));
+        navigationDrawer.addItem(new PrimaryDrawerItem().withIdentifier(2).withName("Livros").withIcon(getResources().getDrawable(R.drawable.logo_book_tea_min)));
+        navigationDrawer.addItem(new PrimaryDrawerItem().withIdentifier(3).withName("Amigos").withIcon(getResources().getDrawable(R.drawable.logo_book_tea_min)));
         navigationDrawer.addItem(new DividerDrawerItem());
         navigationDrawer.addItem(new PrimaryDrawerItem().withIdentifier(4).withName("Configuraões").withIcon(getResources().getDrawable(R.drawable.configs)));
         navigationDrawer.addItem(new PrimaryDrawerItem().withIdentifier(5).withName("Ajuda! Fale conosco").withIcon(getResources().getDrawable(R.drawable.help)));
         navigationDrawer.addItem(new PrimaryDrawerItem().withIdentifier(6).withName("Sair").withIcon(getResources().getDrawable(R.drawable.logo_book_tea_min)));
+    }
+
+    private ArrayList<Livro> livrosListados(){
+        livroList = new ArrayList<>();
+        livroList.add(new Livro("Canavial dos macacos","King M", "1996", "Rock"));
+        livroList.add(new Livro("Canavial dos macacos","King M", "1997", "Rock"));
+        livroList.add(new Livro("Canavial dos macacos","King M", "1998", "Rock"));
+        livroList.add(new Livro("Canavial dos macacos","King M", "1999", "Rock"));
+        livroList.add(new Livro("Canavial dos macacos","King M", "2001", "Rock"));
+        livroList.add(new Livro("Canavial dos macacos","King M", "2004", "Rock"));
+
+        return livroList;
     }
 
     @Override
