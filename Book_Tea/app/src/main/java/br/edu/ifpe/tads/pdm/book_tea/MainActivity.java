@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseUser mUser;
     private DatabaseReference drUsers;
     private Usuario user;
-    private ArrayList<Livro> livroList;
+    private ArrayList<Livro> loadBooks;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +50,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         ListView listViewLivros =(ListView) findViewById(R.id.main_list_view);
-        List<Livro> list = livrosListados();
 
         this.mAuth = FirebaseAuth.getInstance();
         this.authListener = new FirebaseAuthListener(this);
@@ -64,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
         mainToolbar.setSubtitle("Para amantes da leitura");
         setSupportActionBar(mainToolbar);
 
+
         drUsers.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
                     user = childSnapshot.getValue(Usuario.class);
                     if (user != null) {
                         if ((mAuth.getCurrentUser().getEmail()).equals(user.getEmail())) {
-                            ArrayList<String> loadBooks = (ArrayList<String>) childSnapshot.child("/livros").getValue();
+                            loadBooks = (ArrayList<Livro>) childSnapshot.child("/livros").getValue();
                         }
                     }
                 }
@@ -80,6 +80,10 @@ public class MainActivity extends AppCompatActivity {
             public void onCancelled(DatabaseError databaseError){
             }
         });
+
+        ArrayList<Livro> list = loadBooks;
+        LivroAdapter adapterLivros = new LivroAdapter(this, R.layout.titulos_layout,list);
+        listViewLivros.setAdapter(adapterLivros);
 
         headerNavigation = new AccountHeader()
                 .withActivity(this)
@@ -127,17 +131,17 @@ public class MainActivity extends AppCompatActivity {
         navigationDrawer.addItem(new PrimaryDrawerItem().withIdentifier(6).withName("Sair").withIcon(getResources().getDrawable(R.drawable.logo_book_tea_min)));
     }
 
-    private ArrayList<Livro> livrosListados(){
-        livroList = new ArrayList<>();
-        livroList.add(new Livro("Canavial dos macacos","King M", "1996", "Rock"));
-        livroList.add(new Livro("Canavial dos macacos","King M", "1997", "Rock"));
-        livroList.add(new Livro("Canavial dos macacos","King M", "1998", "Rock"));
-        livroList.add(new Livro("Canavial dos macacos","King M", "1999", "Rock"));
-        livroList.add(new Livro("Canavial dos macacos","King M", "2001", "Rock"));
-        livroList.add(new Livro("Canavial dos macacos","King M", "2004", "Rock"));
-
-        return livroList;
-    }
+//    private ArrayList<Livro> livrosListados(){
+//        livroList = new ArrayList<>();
+//        livroList.add(new Livro("Canavial dos macacos","King M", "1996", "Rock"));
+//        livroList.add(new Livro("Canavial dos macacos","King M", "1997", "Rock"));
+//        livroList.add(new Livro("Canavial dos macacos","King M", "1998", "Rock"));
+//        livroList.add(new Livro("Canavial dos macacos","King M", "1999", "Rock"));
+//        livroList.add(new Livro("Canavial dos macacos","King M", "2001", "Rock"));
+//        livroList.add(new Livro("Canavial dos macacos","King M", "2004", "Rock"));
+//
+//        return livroList;
+//    }
 
     @Override
     public void onStart() {
@@ -151,7 +155,7 @@ public class MainActivity extends AppCompatActivity {
         mAuth.removeAuthStateListener(authListener);
     }
 
-    public void buttonSignOutClick() {
+    public void buttonSignOutClick(View view) {
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         FirebaseUser user = mAuth.getCurrentUser();
         if (user != null) {
@@ -165,12 +169,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void buttonBookRegister(View view){
-        Intent i = new Intent(MainActivity.this, BookReadActivity.class);
+        Intent i = new Intent(MainActivity.this, BookRegisterActivity.class);
         startActivity(i);
     }
 
     public void loadBooks(){
 
     }
-
 }

@@ -24,7 +24,6 @@
         <activity
             android:name=".BookReadActivity"
             android:label="@string/title_activity_book_read" />
-        <activity android:name=".BookSearchActivity" />
     </application>
 
 </manifest>
