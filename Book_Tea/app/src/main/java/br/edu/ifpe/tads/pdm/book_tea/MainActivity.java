@@ -44,9 +44,13 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseUser mUser;
     private DatabaseReference drUsers;
     private Usuario user;
+<<<<<<< HEAD
     private ArrayList<Livro> livroList;
     FloatingActionMenu materialDesignFAM;
     FloatingActionButton floatingActionButton1, floatingActionButton2, floatingActionButton3;
+=======
+    private ArrayList<Livro> loadBooks;
+>>>>>>> 4c6c249f714b63066c6280dc9840cb65cfeefa55
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +58,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         ListView listViewLivros =(ListView) findViewById(R.id.main_list_view);
-        List<Livro> list = livrosListados();
 
         this.mAuth = FirebaseAuth.getInstance();
         this.authListener = new FirebaseAuthListener(this);
@@ -68,9 +71,12 @@ public class MainActivity extends AppCompatActivity {
         mainToolbar.setSubtitle("Para amantes da leitura");
         setSupportActionBar(mainToolbar);
 
+<<<<<<< HEAD
         materialDesignFAM = (FloatingActionMenu) findViewById(R.id.material_design_android_floating_action_menu);
         floatingActionButton1 = (FloatingActionButton) findViewById(R.id.material_design_floating_action_menu_item1);
         floatingActionButton2 = (FloatingActionButton) findViewById(R.id.material_design_floating_action_menu_item2);
+=======
+>>>>>>> 4c6c249f714b63066c6280dc9840cb65cfeefa55
 
         drUsers.addValueEventListener(new ValueEventListener() {
             @Override
@@ -79,8 +85,12 @@ public class MainActivity extends AppCompatActivity {
                     user = childSnapshot.getValue(Usuario.class);
                     if (user != null) {
                         if ((mAuth.getCurrentUser().getEmail()).equals(user.getEmail())) {
+<<<<<<< HEAD
                             ArrayList<Livro> loadBooks = (ArrayList<Livro>) childSnapshot.child("/livros").getValue();
                             break;
+=======
+                            loadBooks = (ArrayList<Livro>) childSnapshot.child("/livros").getValue();
+>>>>>>> 4c6c249f714b63066c6280dc9840cb65cfeefa55
                         }
                     }
                 }
@@ -89,6 +99,10 @@ public class MainActivity extends AppCompatActivity {
             public void onCancelled(DatabaseError databaseError){
             }
         });
+
+        ArrayList<Livro> list = loadBooks;
+        LivroAdapter adapterLivros = new LivroAdapter(this, R.layout.titulos_layout,list);
+        listViewLivros.setAdapter(adapterLivros);
 
         headerNavigation = new AccountHeader()
                 .withActivity(this)
@@ -136,17 +150,17 @@ public class MainActivity extends AppCompatActivity {
         navigationDrawer.addItem(new PrimaryDrawerItem().withIdentifier(6).withName("Sair").withIcon(getResources().getDrawable(R.drawable.logo_book_tea_min)));
     }
 
-    private ArrayList<Livro> livrosListados(){
-        livroList = new ArrayList<>();
-        livroList.add(new Livro("Canavial dos macacos","King M", "1996", "Rock"));
-        livroList.add(new Livro("Canavial dos macacos","King M", "1997", "Rock"));
-        livroList.add(new Livro("Canavial dos macacos","King M", "1998", "Rock"));
-        livroList.add(new Livro("Canavial dos macacos","King M", "1999", "Rock"));
-        livroList.add(new Livro("Canavial dos macacos","King M", "2001", "Rock"));
-        livroList.add(new Livro("Canavial dos macacos","King M", "2004", "Rock"));
-
-        return livroList;
-    }
+//    private ArrayList<Livro> livrosListados(){
+//        livroList = new ArrayList<>();
+//        livroList.add(new Livro("Canavial dos macacos","King M", "1996", "Rock"));
+//        livroList.add(new Livro("Canavial dos macacos","King M", "1997", "Rock"));
+//        livroList.add(new Livro("Canavial dos macacos","King M", "1998", "Rock"));
+//        livroList.add(new Livro("Canavial dos macacos","King M", "1999", "Rock"));
+//        livroList.add(new Livro("Canavial dos macacos","King M", "2001", "Rock"));
+//        livroList.add(new Livro("Canavial dos macacos","King M", "2004", "Rock"));
+//
+//        return livroList;
+//    }
 
     @Override
     public void onStart() {
@@ -178,5 +192,11 @@ public class MainActivity extends AppCompatActivity {
         startActivity(i);
     }
 
+<<<<<<< HEAD
 
+=======
+    public void loadBooks(){
+
+    }
+>>>>>>> 4c6c249f714b63066c6280dc9840cb65cfeefa55
 }

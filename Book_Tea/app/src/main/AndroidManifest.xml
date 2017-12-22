@@ -21,11 +21,17 @@
         <activity android:name=".SignUpActivity" />
         <activity android:name=".SignInActivity" />
         <activity android:name=".BookRegisterActivity" />
+<<<<<<< HEAD
         <activity android:name=".PerfilUsuarioActivity" />
         <activity android:name=".PerfilSeguindoActivity" />
         <activity android:name=".PerfilNaoSeguindoActivity" />
         <activity android:name=".PostagemActivity" />
         <activity android:name=".ListaAmigosActivity"></activity>
+=======
+        <activity
+            android:name=".BookReadActivity"
+            android:label="@string/title_activity_book_read" />
+>>>>>>> 4c6c249f714b63066c6280dc9840cb65cfeefa55
     </application>
 
 </manifest>
