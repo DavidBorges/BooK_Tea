@@ -15,8 +15,6 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.HashMap;
 import java.util.Map;
-
-import br.edu.ifpe.tads.pdm.book_tea.domain.*;
 import br.edu.ifpe.tads.pdm.book_tea.domain.Livro;
 
 public class BookRegisterActivity extends AppCompatActivity {
@@ -71,7 +69,7 @@ public class BookRegisterActivity extends AppCompatActivity {
         final String editora = edEditora.getText().toString();
 
 
-        br.edu.ifpe.tads.pdm.book_tea.domain.Livro tempBook = new Livro(nome, autor, anoPub, editora);
+        Livro tempBook = new Livro(nome, autor, anoPub, editora);
         user.getLivros().add(tempBook);
 
         childUpdates.put(mAuth.getCurrentUser().getUid()+"/livros", user.getLivros());

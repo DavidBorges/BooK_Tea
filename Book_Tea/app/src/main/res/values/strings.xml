@@ -101,5 +101,6 @@
     </string>
     <string name="title_activity_main2">Main2Activity</string>
     <string name="title_activity_book_read">BookReadActivity</string>
+    <string name="title_activity_main2_test">Main2TestActivity</string>
 
 </resources>

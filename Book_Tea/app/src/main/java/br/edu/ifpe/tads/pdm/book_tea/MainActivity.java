@@ -10,6 +10,8 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.github.clans.fab.FloatingActionButton;
+import com.github.clans.fab.FloatingActionMenu;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -43,6 +45,8 @@ public class MainActivity extends AppCompatActivity {
     private DatabaseReference drUsers;
     private Usuario user;
     private ArrayList<Livro> livroList;
+    FloatingActionMenu materialDesignFAM;
+    FloatingActionButton floatingActionButton1, floatingActionButton2, floatingActionButton3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +68,10 @@ public class MainActivity extends AppCompatActivity {
         mainToolbar.setSubtitle("Para amantes da leitura");
         setSupportActionBar(mainToolbar);
 
+        materialDesignFAM = (FloatingActionMenu) findViewById(R.id.material_design_android_floating_action_menu);
+        floatingActionButton1 = (FloatingActionButton) findViewById(R.id.material_design_floating_action_menu_item1);
+        floatingActionButton2 = (FloatingActionButton) findViewById(R.id.material_design_floating_action_menu_item2);
+
         drUsers.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -71,7 +79,8 @@ public class MainActivity extends AppCompatActivity {
                     user = childSnapshot.getValue(Usuario.class);
                     if (user != null) {
                         if ((mAuth.getCurrentUser().getEmail()).equals(user.getEmail())) {
-                            ArrayList<String> loadBooks = (ArrayList<String>) childSnapshot.child("/livros").getValue();
+                            ArrayList<Livro> loadBooks = (ArrayList<Livro>) childSnapshot.child("/livros").getValue();
+                            break;
                         }
                     }
                 }
@@ -151,7 +160,7 @@ public class MainActivity extends AppCompatActivity {
         mAuth.removeAuthStateListener(authListener);
     }
 
-    public void buttonSignOutClick() {
+    public void buttonSignOutClick(View view) {
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         FirebaseUser user = mAuth.getCurrentUser();
         if (user != null) {
@@ -165,12 +174,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void buttonBookRegister(View view){
-        Intent i = new Intent(MainActivity.this, BookReadActivity.class);
+        Intent i = new Intent(MainActivity.this, BookRegisterActivity.class);
         startActivity(i);
     }
 
-    public void loadBooks(){
-
-    }
 
 }

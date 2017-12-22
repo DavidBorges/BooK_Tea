@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="br.edu.ifpe.tads.pdm.book_tea.PerfilUsuarioActivity">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="368dp"
+        android:layout_height="250dp"
+        android:orientation="horizontal"
+        tools:layout_editor_absoluteX="8dp"
+        tools:layout_editor_absoluteY="35dp">
+
+        <TextView
+            android:id="@+id/nomeView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="NOME"
+            tools:layout_editor_absoluteX="164dp"
+            tools:layout_editor_absoluteY="69dp"
+            android:textColor="@color/black"/>
+
+        <TextView
+            android:id="@+id/emailView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="EMAIL"
+            tools:layout_editor_absoluteX="164dp"
+            tools:layout_editor_absoluteY="103dp"
+            android:textColor="@color/black"/>
+
+        <Button
+            android:id="@+id/buttonSeguindo"
+            android:layout_width="93dp"
+            android:layout_height="40dp"
+            android:text="Seguindo"
+            tools:layout_editor_absoluteX="151dp"
+            tools:layout_editor_absoluteY="194dp" />
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="70dp"
+            android:layout_height="73dp"
+            app:srcCompat="@drawable/avatar_m2"
+            tools:layout_editor_absoluteX="60dp"
+            tools:layout_editor_absoluteY="45dp" />
+
+        <Button
+            android:id="@+id/buttonLivros"
+            android:layout_width="93dp"
+            android:layout_height="40dp"
+            android:text="Livros"
+            tools:layout_editor_absoluteX="47dp"
+            tools:layout_editor_absoluteY="194dp" />
+
+        <Button
+            android:id="@+id/buttonFollow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Follow"
+            tools:layout_editor_absoluteX="255dp"
+            tools:layout_editor_absoluteY="120dp" />
+
+
+    </android.support.constraint.ConstraintLayout>
+
+
+</android.support.constraint.ConstraintLayout>
